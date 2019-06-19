@@ -9,16 +9,27 @@ print(f'Secret: {SECRET}')
 URL = "https://www.googleapis.com/youtube/v3"
 ENDPOINT = "/videos"
 
-PARAMS = {
-    "part": "snippet",
-    "id": "3ZMBWRINkcQ",
-    "key": SECRET,
-}
 
-# PARAMS['key'] = "AIzaSyBAQA3mesfSqYEPz-9S0q-vKIhm739vBwY"
+def getDesc(videoId):
+    PARAMS = {
+        "part": "snippet",
+        "id": videoId,
+        "key": SECRET,
+    }
+    ENDPOINT = "/videos"
+    return requests.get(url=URL+ENDPOINT, params=PARAMS).json()
 
-r = requests.get(url=URL+ENDPOINT, params=PARAMS)
-print(f'{r}')
-items = r.json()["items"]
-for item in items:
-    print(f'Title: {item["snippet"]["description"]}')
+
+desc = []
+count = 0
+with open('videos.json', 'r') as jsonfile:
+    data = json.load(jsonfile)
+    for response in data:
+        id = response["contentDetails"]["videoId"]
+        res = getDesc(id)
+        desc.append(res)
+        print(f'count: {count} out of {len(data)}')
+        count += 1
+
+with open('descriptions.json', 'w') as outfile:
+    json.dump(desc, outfile)
