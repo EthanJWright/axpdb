@@ -3,8 +3,7 @@ import './App.css';
 import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, NavbarBrand, NavbarToggler, NavItem, Nav, NavLink, Collapse, Container } from 'reactstrap';
-import { CardGroup } from 'reactstrap';
-import Video from './components/Video.js'
+import Deck from './components/Deck.js'
 // import axios from 'axios';
 
 
@@ -53,15 +52,14 @@ class App extends Component {
         // pass
     }
 
+
     render() {
+        const cards = [{title: "Hey"}, {title: "There"}, {title: "Another"}];
         return (
             <div>
                 <PageNav />
                 <Container>
-                    <CardGroup>
-                        <Video />
-                        <Video />
-                    </CardGroup>
+                    <Deck cards={cards}/>
                 </Container>
             </div>
         );
