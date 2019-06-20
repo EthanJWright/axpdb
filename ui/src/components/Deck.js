@@ -15,7 +15,7 @@ class Deck extends React.Component {
         
         for( var i = 0; i < this.props.cards.length; i++ ) {
             const card = this.props.cards[i];
-            built.push(<Video title={card.title} />);
+            built.push(<Video card={card} />);
         }
         return (
             <CardDeck>
